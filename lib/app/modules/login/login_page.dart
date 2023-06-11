@@ -5,11 +5,41 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.sizeOf(context);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xff0092b9),
+              Color(
+                0xff0167B2,
+              ),
+            ],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/images/logo.png'),
+              SizedBox(height: screenSize.height * .05),
+              SizedBox(
+                width: screenSize.width * .8,
+                height: 49,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey[200],
+                  ),
+                  onPressed: () {},
+                  child: Image.asset('assets/images/google.png'),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      body: Container(),
     );
   }
 }
