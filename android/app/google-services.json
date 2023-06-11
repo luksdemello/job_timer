@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "32702315510",
+    "project_id": "job-timer-359eb",
+    "storage_bucket": "job-timer-359eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32702315510:android:9128980ef062905c53a5d7",
+        "android_client_info": {
+          "package_name": "br.com.devdemello.job_timer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32702315510-uhemabm3krfgd3kqmor9icvc8lm8l7pl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN7tdTP5uOzmlkVHiKcEkghTxhazbacHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32702315510-uhemabm3krfgd3kqmor9icvc8lm8l7pl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
