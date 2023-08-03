@@ -9,6 +9,9 @@ class Project {
   Id? id;
 
   late String name;
+
+  late int estimate;
+
   @enumerated
   late ProjectStatus status;
 
