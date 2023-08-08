@@ -7,4 +7,5 @@ abstract interface class ProjectRepository {
   Future<List<Project>> findByStatus(ProjectStatus status);
   Future<Project> addTask(int projectId, ProjectTask task);
   Future<Project> findById(int projectId);
+  Future<void> finishProject(int projectId);
 }

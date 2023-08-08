@@ -6,8 +6,10 @@ import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 
 class ProjectDetailModule extends Module {
   @override
-  List<Bind> get binds =>
-      [BlocBind.lazySingleton((i) => ProjectDetailController())];
+  List<Bind> get binds => [
+        BlocBind.lazySingleton(
+            (i) => ProjectDetailController(projectService: i()))
+      ];
 
   @override
   List<ModularRoute> get routes => [

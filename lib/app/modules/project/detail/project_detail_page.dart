@@ -2,6 +2,7 @@ import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_timer/app/core/ui/job_timer_icons.dart';
+import 'package:job_timer/app/entities/project_status.dart';
 import 'package:job_timer/app/modules/project/detail/controller/project_detail_controller.dart';
 import 'package:job_timer/app/modules/project/detail/widgets/project_pie_chart.dart';
 import 'package:job_timer/app/modules/project/detail/widgets/project_task_tile.dart';
@@ -37,13 +38,13 @@ class ProjectDetailPage extends StatelessWidget {
               );
             case ProjectDetailStatus.failure:
               if (projectModel != null) {
-                return _buildProjectDetail(context, projectModel);
+                return _buildProjectDetail(context, projectModel, controller);
               }
               return const Center(
                 child: Text('Erro ao carregar projeto'),
               );
             case ProjectDetailStatus.success:
-              return _buildProjectDetail(context, projectModel!);
+              return _buildProjectDetail(context, projectModel!, controller);
           }
         },
       ),
@@ -51,7 +52,11 @@ class ProjectDetailPage extends StatelessWidget {
   }
 }
 
-Widget _buildProjectDetail(BuildContext context, ProjectModel projectModel) {
+Widget _buildProjectDetail(BuildContext context, ProjectModel projectModel,
+    ProjectDetailController controller) {
+  final totalTasks =
+      projectModel.tasks.fold(0, (previous, task) => previous += task.duration);
+
   return CustomScrollView(
     slivers: [
       ProjectsDetailAppbar(
@@ -60,14 +65,21 @@ Widget _buildProjectDetail(BuildContext context, ProjectModel projectModel) {
       SliverList(
         delegate: SliverChildListDelegate(
           [
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 top: 50,
                 bottom: 50,
               ),
-              child: ProjectPieChart(),
+              child: ProjectPieChart(
+                projectEstimate: projectModel.estimate,
+                totalTasks: totalTasks,
+              ),
             ),
-            const ProjectTaskTile(),
+            ...projectModel.tasks
+                .map((task) => ProjectTaskTile(
+                      task: task,
+                    ))
+                .toList()
           ],
         ),
       ),
@@ -77,12 +89,17 @@ Widget _buildProjectDetail(BuildContext context, ProjectModel projectModel) {
           alignment: Alignment.bottomRight,
           child: Padding(
             padding: const EdgeInsets.all(15.0),
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(
-                JobTimer.okCircled2,
+            child: Visibility(
+              visible: projectModel.status != ProjectStatus.finalizado,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  controller.finishProject();
+                },
+                icon: const Icon(
+                  JobTimer.okCircled2,
+                ),
+                label: const Text('Finalizar Projeto'),
               ),
-              label: const Text('Finalizar Projeto'),
             ),
           ),
         ),
